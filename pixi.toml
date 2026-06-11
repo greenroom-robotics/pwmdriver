@@ -1,7 +1,7 @@
 [workspace]
 name = "pwmdriver"
 channels = [
-  "http://localhost:8000/general",
+  "http://localhost:12222/general",
   "https://prefix.dev/robostack-kilted",
   "https://prefix.dev/conda-forge",
 ]
@@ -10,32 +10,54 @@ preview = ["pixi-build"]
 
 [dependencies]
 pwmdriver = { path = "." }
-mise = "*"
+mise      = "*"
 
 [package]
-name = "pwmdriver"
-version = "1.1.3"
+name        = "pwmdriver"
+version     = "1.1.3"
 description = "ROS2 Driver for the Linux PWM Interface"
-license = "MIT"
-authors = ["Russ Webber <russ@rw.id.au>"]
+license     = "MIT"
+authors     = ["Russ Webber <russ@rw.id.au>"]
 
 [package.build.backend]
-name = "pixi-build-ros-gr"
-version = "*"
+name    = "pixi-build-ros-gr"
+version = ">=0.4,<0.5"
 
 [package.build.config]
-mode = "pixi-native"
-build-type = "ament_cmake"
-distro = "kilted"
-
+mode         = "pixi-native"
+build-type   = "ament_cmake"
+distro       = "kilted"
 build-number = 1
+
 [package.host-dependencies]
 ros-kilted-ament-cmake = "*"
-ros-kilted-rclcpp = "*"
-ros-kilted-std-msgs = "*"
-fmt = "*"
+ros-kilted-rclcpp      = "*"
+ros-kilted-std-msgs    = "*"
+fmt                    = "*"
 
 [package.run-dependencies]
-ros-kilted-rclcpp = "*"
+ros-kilted-rclcpp   = "*"
 ros-kilted-std-msgs = "*"
-fmt = "*"
+fmt                 = "*"
+
+# Test env builds the package from source with colcon (deb parity),
+# so it needs the build (host) deps as well as the test deps.
+[feature.tests.dependencies]
+# conda toolchain: keeps colcon include/link paths inside the env
+cxx-compiler                 = "*"
+cmake                        = "*"
+make                         = "*"
+pkg-config                   = "*"
+ros-kilted-ament-cmake       = "*"
+ros-kilted-rclcpp            = "*"
+ros-kilted-std-msgs          = "*"
+fmt                          = "*"
+ros-kilted-ament-lint-auto   = "*"
+ros-kilted-ament-lint-common = "*"
+colcon-common-extensions     = "*"
+
+[feature.tests.tasks]
+test = "colcon build && (LD_PRELOAD=$CONDA_PREFIX/lib/libpython3.so colcon test --event-handlers console_direct+ || true) && colcon test-result --all --verbose"
+
+[environments]
+tests = { features = ["tests"], no-default-feature = true }
