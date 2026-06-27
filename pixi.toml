@@ -11,41 +11,41 @@ preview = ["pixi-build"]
 [dependencies]
 ros-kilted-desktop = "*"
 pwmdriver = { path = "." }
-mise      = "*"
+mise = "*"
 
 [package]
-name        = "pwmdriver"
-version     = "1.1.3"
+name = "pwmdriver"
+version = "1.1.3"
 description = "ROS2 Driver for the Linux PWM Interface"
-license     = "MIT"
-authors     = ["Russ Webber <russ@rw.id.au>"]
+license = "MIT"
+authors = ["Russ Webber <russ@rw.id.au>"]
 
 [package.build.backend]
-name    = "pixi-build-ros-gr"
-version = ">=0.4,<0.5"
+name = "pixi-build-ros-gr"
+version = "*"
 
 [package.build.config]
-mode         = "pixi-native"
-build-type   = "ament_cmake"
-distro       = "kilted"
+mode = "pixi-native"
+build-type = "ament_cmake"
+distro = "kilted"
 build-number = 1
 
 [package.host-dependencies]
 ros-kilted-ament-cmake = "*"
-ros-kilted-rclcpp      = "*"
-ros-kilted-std-msgs    = "*"
-fmt                    = "*"
+ros-kilted-rclcpp = "*"
+ros-kilted-std-msgs = "*"
+fmt = "*"
 
 [package.run-dependencies]
-ros-kilted-rclcpp   = "*"
+ros-kilted-rclcpp = "*"
 ros-kilted-std-msgs = "*"
-fmt                 = "*"
+fmt = "*"
 
 # Tests extend dev: same build env, plus lint tooling and the test task.
 [feature.tests.dependencies]
-ros-dev-tools-meta                    = "*"
-ros-kilted-rosidl-default-generators  = "*"
-ros-kilted-ament-lint-auto            = "*"
+ros-dev-tools-meta = "*"
+ros-kilted-rosidl-default-generators = "*"
+ros-kilted-ament-lint-auto = "*"
 
 [feature.tests.tasks]
 build = "colcon build"
@@ -54,11 +54,11 @@ build = "colcon build"
 # failing step stops the chain and fails the task, so a build break or a test
 # failure both surface — no exit codes to juggle.
 [feature.tests.tasks.colcon-test]
-cmd        = "bash -c 'colcon test --event-handlers console_direct+ || [ $? -eq 5 ]'"
+cmd = "bash -c 'colcon test --event-handlers console_direct+ || [ $? -eq 5 ]'"
 depends-on = ["build"]
 
 [feature.tests.tasks.test]
-cmd        = "colcon test-result --all --verbose"
+cmd = "colcon test-result --all --verbose"
 depends-on = ["colcon-test"]
 
 [environments]
