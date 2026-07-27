@@ -22,7 +22,7 @@ authors = ["Russ Webber <russ@rw.id.au>"]
 
 [package.build.backend]
 name = "pixi-build-ros-gr"
-version = "*"
+version = ">=0.5,<0.6"
 
 [package.build.config]
 mode = "pixi-native"
