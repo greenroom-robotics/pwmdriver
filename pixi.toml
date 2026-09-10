@@ -10,7 +10,7 @@ preview = ["pixi-build"]
 
 [package]
 name = "pwmdriver"
-version = "1.1.2"
+version = "1.1.4"
 description = "ROS2 Driver for the Linux PWM Interface"
 license = "MIT"
 authors = ["Russ Webber <russ@rw.id.au>"]
