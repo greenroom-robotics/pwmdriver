@@ -1,0 +1,7 @@
+# pixi local environments
+.pixi/
+
+# colcon / build artifacts
+build
+install
+log
